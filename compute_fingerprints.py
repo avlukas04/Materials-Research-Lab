@@ -25,14 +25,14 @@ def main():
     fingprintschem = []
     structures = []
     filenames,structnames = loaddata(directory)
-    test1 = True
+    test1 = False
     sites = False
     for filename in filenames:
        #print(structnames)
        print(filename)
        structure = Structure.from_file(filename)
        if test1:
-           #filename = "/Users/alukas/Desktop/Materials-Research-Lab/data/MLFF_interface/int_slice_3layers.POSCAR.\"
+           #filename = "/Users/alukas/Desktop/Materials-Research-Lab/data/MLFF_interface/int_slice_3layers.POSCAR.vasp\"
            structure = Structure.from_file(filename)
            #print(filename)
            #fingprints.append(calc_cnn(structure,0))
@@ -85,7 +85,7 @@ def main():
     output_dir = "fingerprints"
     os.makedirs(output_dir, exist_ok=True)
 
-    np.save(os.path.join(output_dir, "fingerprints_int.npy"), np.asarray(fingprints))
+    np.save(os.path.join(output_dir, "fingerprints_crystals.npy"), np.asarray(fingprints))
 
     ### ---- Load in fingerprints if already computed
     #fingprints = np.load("fingerprints_all.npy")
