@@ -26,19 +26,24 @@ def main():
     structures = []
     filenames,structnames = loaddata(directory)
     test1 = False
-    sites = False
+    sites = False #calculate the site specific fingerprint for one structure 
+
+    # Specify the indices you want to iterate over
+   # indices_to_iterate = [0, 2, 4]  # Example list of indices
+    # indices_to_iterate = range(0, 5)  # Example range of indices
+
     for filename in filenames:
        #print(structnames)
        print(filename)
        structure = Structure.from_file(filename)
        if test1:
-           #filename = "/Users/alukas/Desktop/Materials-Research-Lab/data/MLFF_interface/int_slice_3layers.POSCAR.vasp\"
+           filename = "/Users/alukas/Desktop/Materials-Research-Lab/data/MLFF_interfaces/int_slice_3layers.POSCAR.vasp"
            structure = Structure.from_file(filename)
            #print(filename)
            #fingprints.append(calc_cnn(structure,0))
            ### ---- Test just one structure, to run quickly
            fingprints.append(calc_ssf(structure))
-           #filename = "/Users/alukas/Desktop/Materials-Research-Lab/data/MLFF_interface/int_slice_1layer.POSCAR.vasp"
+           filename = "/Users/alukas/Desktop/Materials-Research-Lab/data/MLFF_interfaces/int_slice_1layer.POSCAR.vasp"
            structure = Structure.from_file(filename)
            fingprints.append(calc_ssf(structure))
            #fingprints.append(calc_ssfp(structure))
@@ -46,6 +51,8 @@ def main():
        if sites:
            op_types = load_ops()
            cnfp = CrystalNNFingerprint(op_types, distance_cutoffs=None, x_diff_weight=0)
+        #    for idx in indices_to_iterate:
+        #         s = structure.sites[idx]
            for idx,s in enumerate(structure.sites):
                #if idx in [list of atoms at interface]
                if str(s.specie.symbol)=="Li":
@@ -85,7 +92,7 @@ def main():
     output_dir = "fingerprints"
     os.makedirs(output_dir, exist_ok=True)
 
-    np.save(os.path.join(output_dir, "fingerprints_crystals.npy"), np.asarray(fingprints))
+    np.save(os.path.join(output_dir, "fingerprints_crystals_part2.npy"), np.asarray(fingprints))
 
     ### ---- Load in fingerprints if already computed
     #fingprints = np.load("fingerprints_all.npy")

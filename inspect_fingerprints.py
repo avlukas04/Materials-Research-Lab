@@ -11,7 +11,7 @@ def load_fingerprints(file_path):
         return None
 
 def main():
-    file_path = "fingerprints/fingerprints_crystals.npy"  # Update the path if needed
+    file_path = "fingerprints/fingerprints_crystals_part2.npy"  # Update the path if needed
     fingerprints = load_fingerprints(file_path)
     
     if fingerprints is not None:
